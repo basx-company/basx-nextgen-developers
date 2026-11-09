@@ -1,0 +1,2858 @@
+/* =====================================================================
+   BASX NextGen Coders – Main Stylesheet
+   Table of contents:
+     1.  Design Tokens (colors, fonts, sizes)  <-- customize here
+     2.  Global Styles
+     3.  Buttons
+     4.  Cards & Grids
+     5.  Header & Navigation
+     6.  Hero Slider (Home page)
+     7.  About / Generic Sections
+     8.  Courses (Track Cards)
+     9.  Learning Journey (Steps)
+    10.  Track Pages (Program Levels)
+    11.  Footer
+    12.  Responsive Design (tablet & mobile)
+    13.  Reduced Motion (accessibility)
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. DESIGN TOKENS
+   Change a value here and it updates everywhere on the site.
+   --------------------------------------------------------------------- */
+:root {
+  /* Light theme colors */
+  --bg: #f7f8fa; /* page background */
+  --card: #fff; /* card / header / footer background */
+  --ink: #0b1b33; /* main text color */
+  --muted: #53627a; /* secondary text color */
+  --line: #dde3ec; /* borders */
+  --primary: #1f5eff; /* main brand color (buttons, links) */
+  --accent: #14b8a6; /* secondary brand color (teal) */
+  --on-primary: #fff; /* text color on top of --primary */
+
+  /* Sizes & effects */
+  --r: 12px; /* corner roundness of cards */
+  --shadow: 0 4px 18px rgba(11, 27, 51, 0.08); /* card shadow */
+  --t: 0.2s; /* hover transition speed */
+  --max: 1160px; /* maximum content width */
+}
+
+/* ---------------------------------------------------------------------
+   2. GLOBAL STYLES
+   --------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  /* Site font: edit this line to change the font everywhere */
+  font:
+    16px/1.7 "Segoe UI",
+    Tahoma,
+    "Noto Sans Arabic",
+    system-ui,
+    sans-serif;
+  overflow-x: hidden;
+}
+
+/* Arabic text gets slightly taller line spacing */
+[lang="ar"] body {
+  line-height: 1.9;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Keyboard focus outline */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Centered content container used inside every section */
+.wrap {
+  max-width: var(--max);
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* Every <section> has vertical spacing */
+section {
+  padding: 64px 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+  margin: 0 0 0.5em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Grey paragraph text */
+.lead {
+  color: var(--muted);
+  max-width: 140ch;
+}
+
+/* Section with a slightly different background (cards color) */
+.sub {
+  background: var(--card);
+  border-block: 1px solid var(--line);
+}
+
+/* Small colored label above headings */
+.tag {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+/* Flips arrows (→ ‹ ›) automatically in right-to-left (Arabic) mode */
+.rtl-flip {
+  display: inline-block;
+}
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* ---------------------------------------------------------------------
+   3. BUTTONS
+   --------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.7em 1.4em;
+  border-radius: 8px;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--t);
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+/* ---------------------------------------------------------------------
+   4. CARDS & GRIDS
+   --------------------------------------------------------------------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+/* Two equal columns */
+.g2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Auto-fitting columns (as many as fit, minimum 220px each) */
+.g3 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ---------------------------------------------------------------------
+   5. HEADER & NAVIGATION
+   --------------------------------------------------------------------- */
+
+/* ==================== HEADER ==================== */
+
+header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 20;
+
+  /*
+    The page background remains visible around
+    the floating header.
+  */
+  background: transparent;
+
+  border-bottom: 0;
+
+  padding: 12px 0;
+
+  transition:
+    background-color 0.25s ease,
+    padding 0.25s ease;
+}
+
+/* ==================== HEADER BAR ==================== */
+
+.bar {
+  display: flex;
+
+  align-items: center;
+
+  min-height: 68px;
+
+  padding: 5px 14px;
+
+  /*
+    IMPORTANT:
+    Keep the physical order LTR.
+
+    BASX
+    → Tools
+    → Navigation
+    → NextGen
+  */
+  direction: ltr;
+
+  background: var(--card);
+
+  border: 1px solid var(--line);
+
+  border-radius: 32px;
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(14px);
+
+  -webkit-backdrop-filter: blur(14px);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* ==================== LOGOS ==================== */
+
+.logo {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  text-decoration: none;
+
+  background: transparent;
+}
+
+.logo img {
+  display: block;
+
+  object-fit: contain;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* ==================== BASX LOGO ==================== */
+
+.logo-basx {
+  width: 135px;
+
+  height: 68px;
+
+  padding: 4px 12px;
+
+  border-inline-end: 1px solid var(--line);
+}
+
+.logo-basx img {
+  width: 108px;
+
+  max-height: 64px;
+}
+
+/* ==================== NEXTGEN LOGO ==================== */
+
+.logo-nextgen {
+  width: 145px;
+
+  height: 68px;
+
+  padding: 4px 12px;
+
+  border-inline-start: 1px solid var(--line);
+
+  margin-inline-start: auto;
+}
+
+.logo-nextgen img {
+  width: 120px;
+
+  max-height: 64px;
+}
+
+/* ==================== TOOLS ==================== */
+
+.tools {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+
+  margin: 0 14px;
+}
+
+.tools button {
+  min-width: 42px;
+
+  height: 42px;
+
+  padding: 0 12px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--line);
+
+  background: var(--card);
+
+  color: var(--ink);
+
+  cursor: pointer;
+
+  font: inherit;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tools button:hover {
+  background: var(--bg);
+
+  color: var(--primary);
+
+  border-color: var(--primary);
+
+  transform: translateY(-1px);
+}
+
+/* Language button */
+
+#lang {
+  min-width: 78px;
+
+  font-size: 14px;
+}
+
+/* Theme button */
+
+#theme {
+  width: 42px;
+
+  min-width: 42px;
+
+  padding: 0;
+
+  font-size: 17px;
+}
+
+/* Mobile menu button */
+
+#burger {
+  display: none;
+}
+
+/* ==================== MAIN NAVIGATION ==================== */
+
+nav.main {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 4px;
+
+  flex: 1;
+
+  /*
+    Navigation itself stays RTL
+    because the website is Arabic.
+  */
+  direction: rtl;
+
+  margin: 0 8px;
+}
+
+nav.main a,
+nav.main button.nb {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 12px 16px;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  border: 0;
+
+  color: var(--ink);
+
+  font: inherit;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* ==================== NAV HOVER ==================== */
+
+nav.main a:hover,
+nav.main button.nb:hover {
+  background: var(--bg);
+
+  color: var(--primary);
+}
+
+/* ==================== ACTIVE LINK ==================== */
+
+nav.main a[aria-current] {
+  background: var(--card);
+
+  color: var(--primary);
+}
+
+/*
+  Blue underline under the active page,
+  matching the requested design.
+*/
+
+nav.main a[aria-current]::after {
+  content: "";
+
+  position: absolute;
+
+  left: 14px;
+
+  right: 14px;
+
+  bottom: -2px;
+
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: var(--primary);
+}
+
+/* ==================== DROPDOWN ==================== */
+
+.dd {
+  position: relative;
+}
+
+nav.main .nb {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.dropdown-arrow {
+  display: inline-block;
+
+  font-size: 10px;
+
+  line-height: 1;
+
+  transition: transform 0.2s ease;
+}
+
+.dd.open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* ==================== DROPDOWN MENU ==================== */
+
+.menu {
+  position: absolute;
+
+  top: calc(100% + 10px);
+
+  inset-inline-end: 0;
+
+  min-width: 290px;
+
+  padding: 8px;
+
+  background: var(--card);
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--r);
+
+  box-shadow: var(--shadow);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform: translateY(6px);
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
+
+  z-index: 50;
+}
+
+.dd.open .menu {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+.menu a {
+  display: block;
+
+  width: 100%;
+
+  padding: 11px 12px;
+
+  border-radius: 9px;
+
+  color: var(--ink);
+
+  text-decoration: none;
+
+  text-align: right;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.menu a:hover {
+  background: var(--bg);
+
+  color: var(--primary);
+}
+
+.menu strong {
+  display: block;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.menu small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+/* ==================== THEME SUPPORT ==================== */
+
+/*
+  IMPORTANT:
+
+  We use the site's existing variables:
+
+  Light Mode:
+    --bg
+    --card
+    --ink
+    --muted
+    --line
+
+  Dark Mode:
+    [data-theme="dark"]
+
+  So the header automatically follows
+  the site's Light / Dark Mode.
+*/
+
+/* ==================== HEADER RESPONSIVE ==================== */
+
+/*
+  These rules are intentionally inside Section 5
+  so the header remains self-contained.
+*/
+
+@media (max-width: 1000px) {
+  .bar {
+    gap: 8px;
+  }
+
+  .logo-basx {
+    width: 115px;
+  }
+
+  .logo-basx img {
+    width: 95px;
+  }
+
+  .logo-nextgen {
+    width: 125px;
+  }
+
+  .logo-nextgen img {
+    width: 105px;
+  }
+
+  .tools {
+    margin: 0 7px;
+  }
+
+  nav.main a,
+  nav.main button.nb {
+    padding-inline: 10px;
+
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 820px) {
+  header {
+    padding: 8px 0;
+  }
+
+  .bar {
+    min-height: 62px;
+
+    flex-wrap: wrap;
+
+    padding: 5px 10px;
+
+    border-radius: 22px;
+  }
+
+  /* BASX */
+
+  .logo-basx {
+    width: 100px;
+
+    height: 58px;
+
+    border-inline-end: 0;
+
+    padding: 3px 6px;
+  }
+
+  .logo-basx img {
+    width: 86px;
+
+    max-height: 55px;
+  }
+
+  /* NextGen */
+
+  .logo-nextgen {
+    width: 110px;
+
+    height: 58px;
+
+    border-inline-start: 0;
+
+    padding: 3px 6px;
+
+    margin-inline-start: auto;
+  }
+
+  .logo-nextgen img {
+    width: 96px;
+
+    max-height: 55px;
+  }
+
+  /* Tools */
+
+  .tools {
+    margin: 0 5px;
+
+    gap: 5px;
+  }
+
+  #burger {
+    display: inline-flex;
+  }
+
+  .tools button {
+    height: 38px;
+
+    min-width: 38px;
+
+    padding: 0 9px;
+  }
+
+  #lang {
+    min-width: 68px;
+
+    font-size: 12px;
+  }
+
+  #theme,
+  #burger {
+    width: 38px;
+
+    min-width: 38px;
+  }
+
+  /* Mobile navigation */
+
+  nav.main {
+    display: none;
+
+    order: 10;
+
+    width: 100%;
+
+    flex-basis: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 4px;
+
+    margin: 6px 0 0;
+
+    padding: 8px;
+
+    background: var(--card);
+
+    border: 1px solid var(--line);
+
+    border-radius: 16px;
+  }
+
+  nav.main.show {
+    display: flex;
+  }
+
+  nav.main a,
+  nav.main button.nb {
+    width: 100%;
+
+    padding: 11px;
+
+    text-align: center;
+
+    justify-content: center;
+  }
+
+  nav.main a[aria-current]::after {
+    display: none;
+  }
+
+  /* Mobile dropdown */
+
+  .dd {
+    width: 100%;
+  }
+
+  .dd .menu {
+    position: static;
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin-top: 4px;
+
+    box-shadow: none;
+
+    transform: none;
+
+    display: none;
+
+    opacity: 1;
+
+    visibility: visible;
+  }
+
+  .dd.open .menu {
+    display: block;
+  }
+
+  .menu a {
+    text-align: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .bar {
+    border-radius: 18px;
+
+    padding: 4px 7px;
+  }
+
+  .logo-basx {
+    width: 82px;
+  }
+
+  .logo-basx img {
+    width: 74px;
+  }
+
+  .logo-nextgen {
+    width: 92px;
+  }
+
+  .logo-nextgen img {
+    width: 82px;
+  }
+
+  .tools {
+    gap: 4px;
+
+    margin: 0 3px;
+  }
+
+  .tools button {
+    height: 35px;
+
+    min-width: 35px;
+
+    padding: 0 7px;
+
+    border-radius: 8px;
+  }
+
+  #lang {
+    min-width: 62px;
+
+    font-size: 11px;
+  }
+
+  #theme,
+  #burger {
+    width: 35px;
+
+    min-width: 35px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   6. HERO SLIDER (Home page)
+   --------------------------------------------------------------------- */
+.hero {
+  padding: 0;
+}
+
+.car {
+  position: relative;
+  min-height: 440px;
+  overflow: hidden;
+  background: #0b1b33;
+}
+
+/* One slide (all slides are stacked; the one with .on is visible) */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide.on {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Dark overlay so the white text is readable on any image */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 13, 24, 0.88),
+    rgba(7, 13, 24, 0.45)
+  );
+}
+[dir="rtl"] .slide::before {
+  transform: scaleX(-1);
+}
+
+.slide .wrap {
+  position: relative;
+  width: 100%;
+}
+
+.slide h1 {
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  max-width: 18ch;
+}
+
+.slide p {
+  max-width: 52ch;
+  color: #d6e0f2;
+}
+
+/* ----- Slide backgrounds -----
+   Each slide = a photo on top + a gradient underneath.
+   To use your own photo: put the file in assets/images/ with the name below.
+   If the photo file is missing, the gradient shows instead. */
+.slide-1 {
+  background-image:
+    url("../assets/images/slide-1.jpg"),
+    linear-gradient(135deg, #0b1b33, #1f5eff);
+}
+.slide-2 {
+  background-image:
+    url("../assets/images/slide-2.jpg"),
+    linear-gradient(135deg, #0b1b33, #14b8a6);
+}
+.slide-3 {
+  background-image:
+    url("../assets/images/slide-3.jpg"),
+    linear-gradient(135deg, #1f5eff, #0b1b33);
+}
+.slide-4 {
+  background-image:
+    url("../assets/images/slide-4.jpg"),
+    linear-gradient(135deg, #0f766e, #0b1b33);
+}
+.slide-5 {
+  background-image:
+    url("../assets/images/slide-5.jpg"),
+    linear-gradient(135deg, #0b1b33, #14b8a6, #1f5eff);
+}
+
+/* Slider controls (arrows + dots) */
+.cc {
+  position: absolute;
+  z-index: 3;
+  bottom: 16px;
+  inset-inline: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.cc button {
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.cc .dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+}
+
+.cc .dot[aria-current="true"] {
+  background: var(--accent);
+}
+
+/* ---------------------------------------------------------------------
+   7. ABOUT / GENERIC SECTIONS
+   (The About, and Academy sections use the shared styles above:
+    section, .wrap, .lead, .tag, .card, .grid)
+   --------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+   8. WHY JOIN
+   --------------------------------------------------------------------- */
+
+.why-join {
+  padding: 70px 0;
+}
+
+/* Section title */
+.why-join h2 {
+  margin: 0 0 30px;
+
+  text-align: right;
+
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+/* Main text area
+   No card
+   No background
+   No border
+   No shadow
+*/
+.why-card {
+  width: 100%;
+  max-width: 100%;
+
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+
+  text-align: right;
+}
+
+/* Paragraphs */
+.why-card p {
+  margin: 0;
+
+  padding: 0;
+
+  font-size: 1.05rem;
+  font-weight: 400;
+
+  line-height: 2.05;
+
+  color: var(--text);
+
+  text-align: right;
+}
+
+/* Equal spacing between paragraphs */
+.why-card p + p {
+  margin-top: 24px;
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .why-join {
+    padding: 50px 0;
+  }
+
+  .why-join h2 {
+    margin-bottom: 24px;
+    font-size: 1.7rem;
+  }
+
+  .why-card p {
+    font-size: 1rem;
+    line-height: 1.95;
+  }
+
+  .why-card p + p {
+    margin-top: 22px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   9. TRACKS / TRAINING PROGRAMS
+   --------------------------------------------------------------------- */
+
+/* ==================== TRACKS GRID ==================== */
+
+.tracks-section {
+  padding-top: 35px;
+  padding-bottom: 50px;
+}
+
+.tracks-section h2 {
+  margin-bottom: 28px;
+}
+
+.tracks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
+}
+
+/* Arabic */
+html[dir="rtl"] .tracks-grid {
+  direction: rtl;
+}
+
+/* English */
+html[dir="ltr"] .tracks-grid {
+  direction: ltr;
+}
+
+/* ==================== TRACK CARD ==================== */
+
+.tcard {
+  --track-card-bg: #ffffff;
+  --track-title: #071f49;
+  --track-description: #64748b;
+  --track-border: #dce5f1;
+
+  overflow: hidden;
+  padding: 0 !important;
+
+  border-radius: 17px;
+  border: 1px solid var(--track-border);
+
+  background: var(--track-card-bg) !important;
+  color: var(--track-title);
+
+  box-shadow: 0 8px 25px rgba(10, 35, 75, 0.07);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.tcard:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 14px 32px rgba(10, 35, 75, 0.12);
+
+  border-color: #a9cfff;
+}
+
+/* ==================== IMAGE BANNER ==================== */
+
+.tcard .art {
+  width: 100%;
+  height: 190px;
+
+  position: relative;
+  overflow: hidden;
+
+  display: block;
+
+  background: #071a35;
+}
+
+.tcard .art img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.45s ease;
+}
+
+.tcard:hover .art img {
+  transform: scale(1.045);
+}
+
+/* ==================== IMAGE OVERLAY ==================== */
+
+.tcard .art::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.01),
+    rgba(0, 0, 0, 0.1)
+  );
+
+  pointer-events: none;
+}
+
+/* ==================== CARD CONTENT ==================== */
+
+.tcard .in {
+  padding: 25px 28px 27px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+  text-align: start;
+
+  min-height: 210px;
+}
+
+/* ==================== TITLE + BADGE ==================== */
+
+.track-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+  margin-bottom: 10px;
+
+  width: 100%;
+}
+
+.tcard .track-card-head h3 {
+  margin: 0;
+
+  font-size: 23px;
+  font-weight: 750;
+
+  line-height: 1.5;
+
+  color: var(--track-title);
+
+  text-align: start;
+
+  flex: 1;
+}
+
+/* ==================== TRACK BADGES ==================== */
+
+.track-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 9px 15px;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.track-badge .badge-icon {
+  font-size: 17px;
+  line-height: 1;
+}
+
+/* AI Badge */
+
+.ai-badge {
+  background: #e5f0ff;
+  color: #0754b8;
+}
+
+/* Data Badge */
+
+.data-badge {
+  background: #e5f0ff;
+  color: #0754b8;
+}
+
+/* ==================== DESCRIPTION ==================== */
+
+.tcard .lead {
+  margin: 0 0 22px;
+
+  font-size: 15px;
+  font-weight: 400;
+
+  line-height: 1.9;
+
+  color: var(--track-description);
+
+  text-align: start;
+}
+
+/* ==================== CENTERED BUTTON ==================== */
+
+.tcard .track-btn {
+  align-self: center;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  min-width: 225px;
+  min-height: 54px;
+
+  padding: 13px 25px;
+
+  border-radius: 11px;
+
+  background: #2160ff;
+  color: #ffffff !important;
+
+  font-size: 16px;
+  font-weight: 650;
+
+  text-decoration: none;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tcard .track-btn:hover {
+  background: #0848d8;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 16px rgba(33, 96, 255, 0.22);
+}
+
+/* ==================== BUTTON ARROW ==================== */
+
+.tcard .rtl-flip {
+  display: inline-block;
+
+  font-size: 21px;
+  line-height: 1;
+
+  transition: transform 0.3s ease;
+}
+
+html[dir="rtl"] .tcard .rtl-flip {
+  transform: rotate(180deg);
+}
+
+html[dir="ltr"] .tcard .rtl-flip {
+  transform: rotate(0deg);
+}
+
+/* ==================== TRACK BACKGROUNDS ==================== */
+
+.ai-bg,
+.ds-bg {
+  background: #071a35;
+}
+
+/* =====================================================================
+   DARK MODE
+   Supports common dark-mode implementations.
+   ===================================================================== */
+
+/* Dark mode card colors */
+
+:is(
+    html.dark,
+    body.dark,
+    html.dark-mode,
+    body.dark-mode,
+    html[data-theme="dark"],
+    body[data-theme="dark"],
+    [data-bs-theme="dark"]
+  )
+  .tcard {
+  --track-card-bg: #111c30;
+  --track-title: #f1f5ff;
+  --track-description: #a9b8ce;
+  --track-border: #263957;
+
+  background: var(--track-card-bg) !important;
+
+  border-color: var(--track-border);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode hover */
+
+:is(
+    html.dark,
+    body.dark,
+    html.dark-mode,
+    body.dark-mode,
+    html[data-theme="dark"],
+    body[data-theme="dark"],
+    [data-bs-theme="dark"]
+  )
+  .tcard:hover {
+  border-color: #3768a7;
+
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode badges */
+
+:is(
+    html.dark,
+    body.dark,
+    html.dark-mode,
+    body.dark-mode,
+    html[data-theme="dark"],
+    body[data-theme="dark"],
+    [data-bs-theme="dark"]
+  )
+  .ai-badge {
+  background: #17365d;
+  color: #79baff;
+}
+
+:is(
+    html.dark,
+    body.dark,
+    html.dark-mode,
+    body.dark-mode,
+    html[data-theme="dark"],
+    body[data-theme="dark"],
+    [data-bs-theme="dark"]
+  )
+  .data-badge {
+  background: #17365d;
+  color: #79baff;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .tracks-section {
+    padding-top: 25px;
+    padding-bottom: 35px;
+  }
+
+  .tracks-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .tcard .art {
+    height: 180px;
+  }
+
+  .tcard .in {
+    padding: 22px 20px 25px;
+    min-height: auto;
+  }
+
+  .tcard .track-card-head h3 {
+    font-size: 21px;
+  }
+
+  .tcard .lead {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+
+  .tcard .track-btn {
+    width: 100%;
+    max-width: 280px;
+    min-height: 52px;
+  }
+}
+
+/* ==================== SMALL MOBILE ==================== */
+
+@media (max-width: 480px) {
+  .tcard .art {
+    height: 155px;
+  }
+
+  .tcard .in {
+    padding: 19px 16px 22px;
+  }
+
+  .track-card-head {
+    gap: 8px;
+  }
+
+  .tcard .track-card-head h3 {
+    font-size: 18px;
+  }
+
+  .track-badge {
+    padding: 7px 10px;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .track-badge .badge-icon {
+    font-size: 14px;
+  }
+
+  .tcard .lead {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .tcard .track-btn {
+    font-size: 15px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   10. LEARNING JOURNEY
+   --------------------------------------------------------------------- */
+
+.steps {
+  counter-reset: s;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Journey Card */
+.steps li {
+  position: relative;
+
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+
+  padding: 28px 22px;
+
+  min-height: 260px;
+
+  text-align: right;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Hover */
+.steps li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Number */
+.step-number {
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+  color: var(--on-primary);
+
+  font-size: 1rem;
+  font-weight: 800;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Title */
+.step-content h3 {
+  margin: 0 0 14px;
+
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+  color: var(--text);
+}
+
+/* Description */
+.step-content p {
+  margin: 0;
+
+  font-size: 0.98rem;
+  line-height: 1.9;
+
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .steps li {
+    min-height: auto;
+    padding: 24px 20px;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   12. FOOTER
+   --------------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--card);
+  color: var(--text);
+
+  border-top: 1px solid var(--line);
+
+  padding: 30px 0 18px;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.site-footer .wrap {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* ==================== FOOTER MAIN ==================== */
+
+.footer-main {
+  display: grid;
+
+  grid-template-columns:
+    1.55fr
+    1fr
+    1fr
+    1.25fr;
+
+  align-items: stretch;
+}
+
+/* ==================== BRAND ==================== */
+
+.footer-brand {
+  padding: 5px 35px 10px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-logos {
+  display: flex;
+  align-items: center;
+
+  gap: 25px;
+
+  direction: ltr;
+}
+
+/* ==================== LOGOS ==================== */
+
+.footer-logo {
+  display: block;
+
+  object-fit: contain;
+
+  transition:
+    opacity 0.25s ease,
+    filter 0.25s ease;
+}
+
+/* BASX / Academy */
+
+.footer-logo-basx {
+  width: 125px;
+  max-height: 70px;
+}
+
+/* NextGen Developers */
+
+.footer-logo-nextgen {
+  width: 135px;
+  max-height: 75px;
+}
+
+/* ==================== LOGO DIVIDER ==================== */
+
+.brand-divider {
+  width: 1px;
+  height: 70px;
+
+  background: var(--line);
+
+  opacity: 0.8;
+}
+
+/* ==================== TAGLINE ==================== */
+
+.footer-tagline {
+  margin: 18px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  font-style: italic;
+
+  transition: color 0.25s ease;
+}
+
+/* ==================== FOOTER COLUMNS ==================== */
+
+.footer-column {
+  padding: 5px 30px;
+
+  border-inline-start: 1px solid var(--line);
+
+  transition: border-color 0.25s ease;
+}
+
+.footer-column h4 {
+  margin: 0 0 18px;
+
+  color: var(--text);
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  transition: color 0.25s ease;
+}
+
+.footer-column ul {
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  list-style: none;
+
+  margin: 0 0 12px;
+}
+
+.footer-column a {
+  color: var(--muted);
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer-column li a:hover {
+  color: var(--text);
+}
+
+/* ==================== CONTACT ==================== */
+
+.footer-contact {
+  padding-inline-end: 0;
+}
+
+.footer-email {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: var(--muted) !important;
+
+  text-decoration: none;
+
+  direction: ltr;
+
+  transition: color 0.2s ease;
+}
+
+.footer-email:hover {
+  color: var(--text) !important;
+}
+
+.contact-icon {
+  width: 22px;
+  height: 22px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line);
+
+  border-radius: 50%;
+
+  font-size: 12px;
+
+  color: var(--text);
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* ==================== SOCIAL MEDIA ==================== */
+
+.social-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 18px;
+
+  direction: ltr;
+}
+
+.social-links a {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+
+  border: 1px solid var(--line);
+
+  border-radius: 50%;
+
+  color: var(--text);
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.social-links a:hover {
+  background: var(--text);
+
+  color: var(--card);
+
+  border-color: var(--text);
+
+  transform: translateY(-3px);
+}
+
+.social-links svg {
+  width: 17px;
+  height: 17px;
+
+  fill: currentColor;
+}
+
+.social-links svg rect,
+.social-links svg circle {
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.8;
+}
+
+/* ==================== FOOTER BOTTOM ==================== */
+
+.footer-bottom {
+  margin-top: 28px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid var(--line);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  text-align: center;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.footer-bottom-line {
+  width: 90px;
+
+  height: 1px;
+
+  background: var(--line);
+}
+
+/* ==================== LIGHT / DARK LOGO SUPPORT ==================== */
+
+/*
+   لو اللوجوهات PNG فيها ألوان ثابتة ومناسبة للـ Light Mode،
+   مش محتاجين نعمل أي حاجة هنا.
+
+   في Dark Mode نستخدم نفس اللوجوهات بدون تغيير.
+   لو احتجنا نسخة White للوجوهات لاحقًا ممكن نضيفها بسهولة.
+*/
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 900px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+
+    row-gap: 30px;
+  }
+
+  .footer-brand {
+    padding-inline-end: 25px;
+  }
+
+  .footer-column {
+    padding-inline: 25px;
+  }
+
+  .footer-contact {
+    padding-inline-end: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 35px 0 20px;
+  }
+
+  .site-footer .wrap {
+    width: min(100% - 30px, 500px);
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .footer-brand {
+    padding: 0 0 25px;
+  }
+
+  .brand-logos {
+    justify-content: center;
+
+    gap: 18px;
+  }
+
+  .footer-logo-basx {
+    width: 105px;
+  }
+
+  .footer-logo-nextgen {
+    width: 115px;
+  }
+
+  .brand-divider {
+    height: 55px;
+  }
+
+  .footer-tagline {
+    text-align: center;
+  }
+
+  .footer-column {
+    padding: 22px 0;
+
+    border-inline-start: none;
+
+    border-top: 1px solid var(--line);
+
+    text-align: center;
+  }
+
+  .footer-contact {
+    padding-bottom: 5px;
+  }
+
+  .footer-email {
+    justify-content: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 20px;
+  }
+
+  .footer-bottom-line {
+    width: 60px;
+  }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer,
+  .site-footer *,
+  .social-links a {
+    transition: none !important;
+  }
+}
+/* ---------------------------------------------------------------------
+   13. RESPONSIVE DESIGN
+   --------------------------------------------------------------------- */
+
+/* Tablet (up to 900px) */
+@media (max-width: 900px) {
+  .fg {
+    grid-template-columns: 1fr 1fr;
+  }
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+  .g2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Large phone / small tablet (up to 820px): mobile menu appears */
+@media (max-width: 820px) {
+  .levels {
+    grid-template-columns: 1fr;
+  }
+
+  #burger {
+    display: block;
+  }
+  .tools {
+    margin-inline-start: auto;
+  }
+  .bar {
+    flex-wrap: wrap;
+  }
+
+  /* Navigation becomes a hidden list that the ☰ button opens (.show) */
+  nav.main {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    order: 9;
+    padding-bottom: 12px;
+    margin: 0;
+  }
+  nav.main.show {
+    display: flex;
+  }
+
+  /* Dropdown opens inline instead of floating */
+  .menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
+    box-shadow: none;
+    margin: 4px 0;
+  }
+  .dd.open .menu {
+    display: block;
+  }
+
+  /* Hide the academy logo on small screens */
+  .logo.acad {
+    display: none;
+  }
+}
+
+/* Phone (up to 520px) */
+@media (max-width: 520px) {
+  .fg,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  section {
+    padding: 44px 0;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   14. REDUCED MOTION (for visitors who prefer no animations)
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   PROGRAM LEVEL
+   ========================================================= */
+
+.levels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.lv {
+  padding: 32px;
+}
+
+/* =========================================================
+   LEVEL TITLE
+   ========================================================= */
+
+.level-title {
+  margin-bottom: 28px;
+}
+
+.level-title h3 {
+  margin: 0;
+
+  color: var(--ink);
+
+  font-size: 1.55rem;
+  line-height: 1.5;
+
+  font-weight: 600;
+}
+
+.level-title h3 span {
+  color: var(--muted);
+  font-size: 0.72em;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+/* =========================================================
+   QUESTIONS CONTAINER
+   ========================================================= */
+
+.level-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =========================================================
+   QUESTION CARD
+   ========================================================= */
+
+.level-question {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 18px;
+
+  padding: 20px 22px;
+
+  border: 1px solid var(--line);
+  border-radius: 16px;
+
+  background: var(--card);
+
+  box-shadow: 0 3px 14px rgba(11, 27, 51, 0.05);
+
+  transition:
+    transform var(--t),
+    box-shadow var(--t),
+    border-color var(--t);
+}
+
+.level-question:hover {
+  transform: translateY(-2px);
+
+  border-color: #c9d7f5;
+
+  box-shadow: 0 7px 22px rgba(11, 27, 51, 0.08);
+}
+
+/* =========================================================
+   NUMBER
+   ========================================================= */
+
+.question-number {
+  flex: 0 0 46px;
+
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+  color: #fff;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  direction: ltr;
+}
+
+/* =========================================================
+   QUESTION CONTENT
+   ========================================================= */
+
+.question-content {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.question-content h4 {
+  margin: 2px 0 8px;
+
+  color: var(--ink);
+
+  font-size: 1.08rem;
+  line-height: 1.7;
+
+  font-weight: 600;
+}
+
+.question-content p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 0.96rem;
+  line-height: 1.9;
+}
+
+/* =========================================================
+   LIST
+   ========================================================= */
+
+.question-content ul {
+  margin: 8px 0 0;
+
+  padding-right: 20px;
+  padding-left: 0;
+
+  color: var(--muted);
+
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+
+.question-content li {
+  margin-bottom: 6px;
+}
+
+.question-content li:last-child {
+  margin-bottom: 0;
+}
+
+.question-content li::marker {
+  color: var(--primary);
+}
+
+.question-content strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* =========================================================
+   REGISTER SECTION
+   ========================================================= */
+
+.level-register {
+  margin-top: 22px;
+
+  padding: 28px 24px;
+
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #163b78, #0f2f68);
+
+  text-align: center;
+
+  color: #fff;
+}
+
+.level-register h3 {
+  margin: 0 0 7px;
+
+  color: #fff;
+
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.level-register p {
+  margin: 0 auto 18px;
+
+  max-width: 650px;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.level-register .btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 160px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 820px) {
+  .lv {
+    padding: 22px 18px;
+  }
+
+  .level-title {
+    margin-bottom: 22px;
+  }
+
+  .level-title h3 {
+    font-size: 1.3rem;
+  }
+
+  .level-questions {
+    gap: 11px;
+  }
+
+  .level-question {
+    gap: 13px;
+
+    padding: 17px 15px;
+
+    border-radius: 14px;
+  }
+
+  .question-number {
+    flex-basis: 40px;
+
+    width: 40px;
+    height: 40px;
+
+    font-size: 0.8rem;
+  }
+
+  .question-content h4 {
+    font-size: 0.98rem;
+  }
+
+  .question-content p,
+  .question-content ul {
+    font-size: 0.9rem;
+  }
+
+  .level-register {
+    padding: 24px 18px;
+  }
+
+  .level-register h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .level-question {
+    gap: 10px;
+    padding: 15px 12px;
+  }
+
+  .question-number {
+    flex-basis: 36px;
+
+    width: 36px;
+    height: 36px;
+  }
+
+  .question-content h4 {
+    font-size: 0.92rem;
+  }
+
+  .question-content p,
+  .question-content ul {
+    font-size: 0.86rem;
+    line-height: 1.8;
+  }
+
+  .level-title h3 {
+    font-size: 1.18rem;
+  }
+}
+/* AI PAGE - REGISTER SECTION BACKGROUND */
+body[data-page="ai"] .level-register {
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+
+body[data-page="ai"] .level-register h3 {
+  color: var(--ink) !important;
+}
+
+body[data-page="ai"] .level-register p {
+  color: var(--muted) !important;
+}
+
+/* DATA SCIENCE PAGE - REGISTER SECTION BACKGROUND */
+body[data-page="data"] .level-register {
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+
+body[data-page="data"] .level-register h3 {
+  color: var(--ink) !important;
+}
+
+body[data-page="data"] .level-register p {
+  color: var(--muted) !important;
+}
+
+/* =====================================
+   REGISTRATION BANNER - CLEAN DESIGN
+===================================== */
+
+.level-register {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 220px;
+  padding: 35px 25px;
+  margin: 25px 0;
+
+  background: #fff !important;
+  border: 1px solid #dce5fa;
+  border-radius: 22px;
+
+  box-shadow: 0 5px 20px rgba(20, 50, 120, 0.035);
+
+  text-align: center;
+  overflow: hidden;
+}
+
+.level-register .register-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* Heading */
+
+.level-register h3 {
+  color: #142b68 !important;
+  font-size: clamp(25px, 2.5vw, 36px) !important;
+  font-weight: 750;
+  line-height: 1.5;
+
+  margin: 0 0 10px;
+}
+
+/* Description */
+
+.level-register p {
+  color: #52658e !important;
+  font-size: clamp(15px, 1.5vw, 20px) !important;
+  font-weight: 400;
+  line-height: 1.8;
+
+  max-width: 850px;
+  margin: 0 auto 22px !important;
+
+  text-align: center !important;
+  text-wrap: balance;
+}
+
+/* Register Button */
+
+.level-register .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 13px 32px;
+  min-width: auto;
+
+  background: #2059d5 !important;
+  color: #fff !important;
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: 17px !important;
+  font-weight: 600;
+
+  box-shadow: 0 5px 14px rgba(32, 89, 213, 0.14);
+
+  transition: all 0.25s ease;
+}
+
+.level-register .btn:hover {
+  background: #1648b8 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(32, 89, 213, 0.18);
+}
+
+/* Decorative Circles */
+
+.level-register .register-decoration {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.level-register .register-decoration-left {
+  top: -145px;
+  left: -80px;
+  background: rgba(32, 89, 213, 0.055);
+  box-shadow: 0 0 0 25px rgba(32, 89, 213, 0.025);
+}
+
+.level-register .register-decoration-right {
+  bottom: -155px;
+  right: -80px;
+  background: rgba(32, 89, 213, 0.055);
+  box-shadow: 0 0 0 25px rgba(32, 89, 213, 0.025);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .level-register {
+    min-height: 190px;
+    padding: 30px 16px;
+    margin: 20px 0;
+    border-radius: 17px;
+  }
+
+  .level-register h3 {
+    font-size: 23px !important;
+    margin-bottom: 8px;
+  }
+
+  .level-register p {
+    font-size: 15px !important;
+    line-height: 1.7;
+    margin-bottom: 18px !important;
+  }
+
+  .level-register .btn {
+    padding: 12px 24px;
+    font-size: 15px !important;
+    border-radius: 10px;
+  }
+
+  .level-register .register-decoration {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+/* =========================================================
+   HERO SLIDER - RESPONSIVE FIX
+   Desktop / Tablet / Mobile
+   Keeps original HTML and content unchanged
+   ========================================================= */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .car {
+    min-height: 460px;
+  }
+
+  .slide {
+    background-size: cover;
+    background-position: 65% center;
+  }
+
+  .slide .wrap {
+    width: 100%;
+    padding-inline: 30px;
+  }
+
+  .slide h1 {
+    max-width: 22ch;
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    padding: 0;
+    width: 100%;
+  }
+
+  .car {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    overflow: hidden;
+  }
+
+  .slide {
+    inset: 0;
+    width: 100%;
+    min-height: 500px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-size: cover;
+    background-position: 78% center;
+    background-repeat: no-repeat;
+  }
+
+  /* Better image visibility and text contrast */
+  .slide::before {
+    background: linear-gradient(
+      180deg,
+      rgba(7, 13, 24, 0.72),
+      rgba(7, 13, 24, 0.6),
+      rgba(7, 13, 24, 0.78)
+    );
+
+    transform: none;
+  }
+
+  /* Hero content */
+  .slide .wrap {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 100%;
+
+    padding: 35px 22px 75px;
+
+    text-align: center;
+  }
+
+  .slide h1 {
+    max-width: 100%;
+
+    font-size: clamp(1.65rem, 6vw, 2.2rem);
+
+    line-height: 1.5;
+
+    margin-bottom: 16px;
+
+    text-align: center;
+
+    overflow-wrap: break-word;
+  }
+
+  .slide p {
+    max-width: 100%;
+
+    margin: 0 auto 22px;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+
+    text-align: center;
+  }
+
+  .slide .btn {
+    display: inline-block;
+
+    padding: 11px 24px;
+
+    font-size: 14px;
+
+    margin-top: 5px;
+  }
+
+  /* Slider controls */
+  .cc {
+    bottom: 13px;
+
+    gap: 7px;
+
+    justify-content: center;
+
+    width: 100%;
+
+    padding: 0 10px;
+  }
+
+  .cc button {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+  }
+
+  .cc .dot {
+    width: 9px;
+    height: 9px;
+
+    padding: 0;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .car {
+    min-height: 460px;
+  }
+
+  .slide {
+    min-height: 460px;
+
+    background-size: cover;
+
+    background-position: 78% center;
+  }
+
+  .slide .wrap {
+    padding: 30px 18px 70px;
+  }
+
+  .slide h1 {
+    font-size: clamp(1.5rem, 6.5vw, 1.9rem);
+
+    line-height: 1.6;
+
+    margin-bottom: 13px;
+  }
+
+  .slide p {
+    font-size: 13px;
+
+    line-height: 1.9;
+
+    margin-bottom: 18px;
+  }
+
+  .slide .btn {
+    padding: 10px 21px;
+
+    font-size: 13px;
+  }
+
+  .cc {
+    bottom: 12px;
+
+    gap: 6px;
+  }
+
+  .cc button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cc .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .car,
+  .slide {
+    min-height: 440px;
+  }
+
+  .slide .wrap {
+    padding-inline: 14px;
+  }
+
+  .slide h1 {
+    font-size: 1.45rem;
+  }
+
+  .slide p {
+    font-size: 12px;
+  }
+
+  .cc {
+    gap: 5px;
+  }
+}
